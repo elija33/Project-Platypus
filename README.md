@@ -6,8 +6,11 @@ A software tool could automate the task of tracking vulnerability assessment fin
 
 
 Team Member and Roll
+
 Program Owner - John
+
 Scrum Master - Patrick
+
 Development Team - Kevin, Eli, Tyler, Isaac
 Project Initiation Document - John
 Requirement Documents - Isaac
