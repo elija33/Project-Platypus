@@ -12,9 +12,15 @@ Program Owner - John
 Scrum Master - Patrick
 
 Development Team - Kevin, Eli, Tyler, Isaac
+
 Project Initiation Document - John
+
 Requirement Documents - Isaac
+
 Design Documents - Eli
+
 Validation Plan with Traceability Matrix - Tyler
+
 Test Plan with Test Scripts - Kevin
+
 User Manual with Poster and Abstract - Patrick
