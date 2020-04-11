@@ -2,40 +2,39 @@ import java.util.ArrayList;
 
 public class Organizer {
 	
-	Vulnerability vuln1 = new Vulnerability();
-	Vulnerability vuln2 = new Vulnerability();
-	Vulnerability vuln3 = new Vulnerability();
-
-
 	
-	ArrayList<Vulnerability> list = new ArrayList<Vulnerability>();
-	
-	public Organizer(ArrayList<Vulnerability> list) {
-		this.list = list;
+	public Organizer() {
 		
-		vuln1.setName("Vuln 1");
-		vuln1.setPluginId("123");
-		vuln1.setRisk("High");
-		
-		vuln2.setName("Vuln 2");
-		vuln2.setPluginId("456");
-		vuln2.setRisk("Medium");
-		
-		vuln3.setName("Vuln 3");
-		vuln3.setPluginId("789");
-		vuln3.setRisk("Low");
 	}
 	
 	//Method takes in an arraylist of vulnerability and adds cost estimates to each
 	//PATRICK'S PART
-	public ArrayList<Vulnerability> addCostEstimates(ArrayList<Vulnerability> list) {
+	public void addCostEstimates(ArrayList<Vulnerability> list) {
 		
+		for(Vulnerability vuln : list) {
+			
+			if(vuln.getPluginId() == 123) {
+				vuln.setCost("$25");
+				vuln.setTimeToFix("15 minutes");
+			} else if (vuln.getPluginId() == 456) {
+				vuln.setCost("$50");
+				vuln.setTimeToFix("30 minutes");
+			} else if (vuln.getPluginId() == 789) {
+				vuln.setCost("$100");
+				vuln.setTimeToFix("1 hour");
+			} else if (vuln.getPluginId() == 000) {
+				vuln.setCost("$200");
+				vuln.setTimeToFix("2 hours");
+			} else {
+				vuln.setCost("N/A");
+				vuln.setTimeToFix("N/A");
+			} 
+			
+			
+			
+		}
 		
-		
-		
-		
-		
-		return list;
+	
 		
 	}
 	
@@ -49,6 +48,8 @@ public class Organizer {
 	
 		return list;
 	}
+	
+
 	
 	
 	
