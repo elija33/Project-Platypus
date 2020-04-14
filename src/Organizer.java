@@ -84,11 +84,12 @@ public class Organizer {
 	//Method takes in an arraylist of vulnerability and organizes it first by highest risk first, then by cheapest cost
 	//Example: Risk High cost $50 would be first, Risk High cost $100 second, Risk Medium cost $20 third, etc.
 	//ELI'S PART
-	public void organizeList(ArrayList<Vulnerability> list) {
+	public ArrayList<Vulnerability> organizeList(ArrayList<Vulnerability> list) {
 		
 		
 		
 	
+		return list;
 	}
 	
 
