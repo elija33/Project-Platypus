@@ -74,7 +74,7 @@ public class main{
 		
 		System.out.println("\nSORTING BY PRIORITY\n");
 		
-		organizer.organizeList(EliTestList);
+		organizer.organizeList(PatrickTestList);
 		
 		for(Vulnerability vuln : PatrickTestList) {
 			System.out.print(vuln.getName() + " | ");
