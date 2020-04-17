@@ -1,46 +1,67 @@
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 
 public class CSVReader {
 	
 	public CSVReader(String csvfile) throws FileNotFoundException  {
 		
-		//Get scanner instance
+	ArrayList<Vulnerability> vulnList = new ArrayList<Vulnerability>();
         Scanner scanner = new Scanner(new File(csvfile));
         Vulnerability vuln = new Vulnerability();
          
-        //Set the delimiter used in file
-        scanner.useDelimiter(",");
-        int counter = 1;
-        int lineskip = 0;
-        String nextfield;
-        //Get all tokens and store them in some data structure
-        //I am just printing them
+        scanner.useDelimiter(",");                             // Set delimiter to comma for CSV file
+        Pattern p = Pattern.compile("\"[^\"]*\"");             // Matches quoted field without commas between quotes
+        int fieldCounter = 1;				       // Use as numerical place holder for each field
+        Boolean lineskip = true;			       // Used to skip first line
+        String nextField;                                      // Holds string of current column/row
+        String addLine;					       // Holds scanner.next() to add line if comma is within a field
+        
+        
         while (scanner.hasNext()) 
         {
-        	if (lineskip == 0) {
-        		nextfield = scanner.next();
-        		counter++;
-        		if (counter == 13) {
-        			lineskip = 1;
-        			counter = 1;
-        		}
-        	}
-        	else {
-        		nextfield = scanner.next().trim();
-        		Splitter(nextfield, counter, vuln);
-        		counter++;
-            		if (counter == 13) {
-            			break;
+            if (lineskip) {                               // Skips first Line of CSV which is Column names
+       		nextField = scanner.next();
+       		fieldCounter++;
+       		if (fieldCounter == 13) {
+       			lineskip = false;
+       			fieldCounter = 1;
+       		}
+       	}
+       	    else {
+       		nextField = scanner.next().trim();              // reads next field and takes off excess whitespace 
+       		
+       		if (fieldCounter == 1 && nextField.isEmpty()) {      // Breaks the loop when there is "" in PLuginID
+       			break;	
+       		}   
+       		
+       		Matcher m = p.matcher(nextField);               // Sets m to match field to the pattern p
+       		
+		if (nextField.contains("\"")) {					// Checks if field contain "
+        		if(!m.find()) {								// If contains " but does not include pattern
+        			do {									// Adds lines to field until line includes another " 
+        			    addLine = scanner.next();
+       				    nextField = nextField + addLine;
+       				} while (!addLine.contains("\""));	
+       			}		
+       		}
+        		
+       		Splitter(nextField, fieldCounter, vuln);				// Sends field, counter number and current vulnerability object
+       		fieldCounter++;
+		if (fieldCounter == 13) {						// Check counter for end of row
+            		AddVulnToList(vuln, vulnList);			// Adds vulnerability to list
+       			fieldCounter = 1;							// Resets counter
+       			vuln = new Vulnerability();				// Resets vulnerability object
+            			
             	}
-        	}
         }
+    }
         
-        placer(vuln);
-        //Do not forget to close the scanner  
         scanner.close();
-	}
+}
 	
 	public void Splitter(String input, int fieldCheck, Vulnerability vuln ) {
 		
@@ -72,12 +93,9 @@ public class CSVReader {
 		}
 	}
 	
-	public void placer(Vulnerability vuln) {
+	public void AddVulnToList(Vulnerability vuln, ArrayList<Vulnerability> list) {
 		
-		System.out.println(vuln.getCVE());
-		System.out.println(vuln.getCVSS());
-		System.out.println(vuln.getPluginId());
-		System.out.println(vuln.getHost());
+		list.add(vuln);
+		
 	}
 }
-
