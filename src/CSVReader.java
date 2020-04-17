@@ -23,7 +23,7 @@ public class CSVReader {
         
         while (scanner.hasNext()) 
         {
-            if (lineskip) {                               // Skips first Line of CSV which is Column names
+            if (lineskip) {                                    // Skips first Line of CSV which is Column names
        		nextField = scanner.next();
        		fieldCounter++;
        		if (fieldCounter == 13) {
@@ -32,29 +32,29 @@ public class CSVReader {
        		}
        	}
        	    else {
-       		nextField = scanner.next().trim();              // reads next field and takes off excess whitespace 
+       		nextField = scanner.next().trim();                 // reads next field and takes off excess whitespace 
        		
-       		if (fieldCounter == 1 && nextField.isEmpty()) {      // Breaks the loop when there is "" in PLuginID
+       		if (fieldCounter == 1 && nextField.isEmpty()) {    // Breaks the loop when there is "" in PLuginID
        			break;	
        		}   
        		
-       		Matcher m = p.matcher(nextField);               // Sets m to match field to the pattern p
+       		Matcher m = p.matcher(nextField);                  // Sets m to match field to the pattern p
        		
-		if (nextField.contains("\"")) {					// Checks if field contain "
-        		if(!m.find()) {								// If contains " but does not include pattern
-        			do {									// Adds lines to field until line includes another " 
-        			    addLine = scanner.next();
-       				    nextField = nextField + addLine;
-       				} while (!addLine.contains("\""));	
-       			}		
-       		}
+		if (nextField.contains("\"")) {			   // Checks if field contain "
+        	    if(!m.find()) {				   // If contains " but does not include pattern
+        		do {					   // Adds lines to field until line includes another " 
+        		    addLine = scanner.next();
+       			    nextField = nextField + addLine;
+  			} while (!addLine.contains("\""));	
+       		}		
+       	    }
         		
-       		Splitter(nextField, fieldCounter, vuln);				// Sends field, counter number and current vulnerability object
+       		Splitter(nextField, fieldCounter, vuln);	   // Sends field, counter number and current vulnerability object
        		fieldCounter++;
-		if (fieldCounter == 13) {						// Check counter for end of row
-            		AddVulnToList(vuln, vulnList);			// Adds vulnerability to list
-       			fieldCounter = 1;							// Resets counter
-       			vuln = new Vulnerability();				// Resets vulnerability object
+		if (fieldCounter == 13) {			   // Check counter for end of row
+            		AddVulnToList(vuln, vulnList);	           // Adds vulnerability to list
+       			fieldCounter = 1;			   // Resets counter
+       			vuln = new Vulnerability();		   // Resets vulnerability object
             			
             	}
         }
