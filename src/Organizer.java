@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 
-public class Organizer {
-	
+public class Organizer {	
 	
 	public Organizer() {
 		
@@ -86,15 +85,90 @@ public class Organizer {
 	//ELI'S PART
 	public ArrayList<Vulnerability> organizeList(ArrayList<Vulnerability> list) {
 		
+		ArrayList<Vulnerability> criticalList = new ArrayList<Vulnerability>();
+		ArrayList<Vulnerability> highList = new ArrayList<Vulnerability>();
+		ArrayList<Vulnerability> mediumList = new ArrayList<Vulnerability>();
+		ArrayList<Vulnerability> lowList = new ArrayList<Vulnerability>();
 		
+		ArrayList<Vulnerability> finalList = new ArrayList<Vulnerability>();
+
 		
-	
-		return list;
+		for(Vulnerability vuln : list) {
+			if(vuln.getRisk().contentEquals("Critical")) {
+				criticalList.add(vuln);
+			} else if(vuln.getRisk().contentEquals("High")) {
+				highList.add(vuln);
+			} else if(vuln.getRisk().contentEquals("Medium")) {
+				mediumList.add(vuln);
+			} else if(vuln.getRisk().contentEquals("Low")) {
+				lowList.add(vuln);
+			}
+
+		}
+		
+		criticalList = sortList(criticalList);
+		highList = sortList(highList);
+		mediumList = sortList(mediumList);
+		lowList = sortList(lowList);
+		
+		for(Vulnerability vuln : criticalList) {
+			finalList.add(vuln);
+		}
+		for(Vulnerability vuln : highList) {
+			finalList.add(vuln);
+		}
+		for(Vulnerability vuln : mediumList) {
+			finalList.add(vuln);
+		}
+		for(Vulnerability vuln : lowList) {
+			finalList.add(vuln);
+		}
+		
+		return finalList;
 	}
 	
+	public ArrayList<Vulnerability> sortList(ArrayList<Vulnerability> list) {
+		
+		ArrayList<Vulnerability> orderedList = new ArrayList<Vulnerability>();
+	
+		int runCount = 0;
+		
+		while(runCount < 11) {
+			
+		
+		for(Vulnerability vuln : list) {
+		
+			if(vuln.getCost().contentEquals("$10") && runCount == 0) {
+				orderedList.add(vuln);
+			} else if(vuln.getCost().contentEquals("$15") && runCount == 1) {
+				orderedList.add(vuln);
+			} else if(vuln.getCost().contentEquals("$30") && runCount == 2) {
+				orderedList.add(vuln);
+			} else if(vuln.getCost().contentEquals("$50") && runCount == 3) {
+				orderedList.add(vuln);
+			} else if(vuln.getCost().contentEquals("$50 - $100") && runCount == 4) {
+				orderedList.add(vuln);
+			} else if(vuln.getCost().contentEquals("$100") && runCount == 5) {
+				orderedList.add(vuln);
+			} else if(vuln.getCost().contentEquals("$150 - $525") && runCount == 6) {
+				orderedList.add(vuln);
+			} else if(vuln.getCost().contentEquals("$160- $639") && runCount == 7) {
+				orderedList.add(vuln);
+			} else if(vuln.getCost().contentEquals("$250") && runCount == 8) {
+				orderedList.add(vuln);
+			} else if(vuln.getCost().contentEquals("$373") && runCount == 9) {
+				orderedList.add(vuln);
+			} else if(vuln.getCost().contentEquals("N/A Talk to IT Professional") && runCount == 10) {
+				orderedList.add(vuln);
+			} 
+		}
+		
+		runCount++;
+		
+	}
+		
+		return orderedList;
 
+}
 	
-	
-	
-
 }
