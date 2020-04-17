@@ -61,6 +61,8 @@ public class main{
 			System.out.println(vuln.getCost());
 
 		}
+		 //Soring out arraylist//
+		Collection.sort(PatrickTestList);
 		
 		System.out.println("\nADDING COSTS\n");
 
@@ -70,6 +72,8 @@ public class main{
 			System.out.print(vuln.getName() + " | ");
 			System.out.print(vuln.getRisk() + " - ");
 			System.out.println(vuln.getCost());
+			//Print out the list after the list is sort out
+			System.out.println(PatrickTestList);
 		}
 		
 		System.out.println("\nSORTING BY PRIORITY\n");
