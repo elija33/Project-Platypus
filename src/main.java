@@ -12,6 +12,9 @@ public class main{
 		Vulnerability vuln5 = new Vulnerability();
 		Vulnerability vuln6 = new Vulnerability();
 		Vulnerability vuln7 = new Vulnerability();
+		Vulnerability vuln8 = new Vulnerability();
+		Vulnerability vuln9 = new Vulnerability();
+		Vulnerability vuln10 = new Vulnerability();
 
 		ArrayList<Vulnerability> PatrickTestList = new ArrayList<Vulnerability>();
 		ArrayList<Vulnerability> EliTestList = new ArrayList<Vulnerability>();
@@ -26,7 +29,7 @@ public class main{
 
 		vuln3.setName("Vuln 3");
 		vuln3.setPluginId("58987");
-		vuln3.setRisk("Low");
+		vuln3.setRisk("Critical");
 
 		vuln4.setName("Vuln 4");
 		vuln4.setPluginId("79638");
@@ -43,6 +46,18 @@ public class main{
 		vuln7.setName("Vuln 7");
 		vuln7.setPluginId("34460");
 		vuln7.setRisk("High");
+		
+		vuln8.setName("Vuln 8");
+		vuln8.setPluginId("35291");
+		vuln8.setRisk("Low");
+		
+		vuln9.setName("Vuln 9");
+		vuln9.setPluginId("10107");
+		vuln9.setRisk("None");
+		
+		vuln10.setName("Vuln 10");
+		vuln10.setPluginId("125313");
+		vuln10.setRisk("Critical");
 
 
 		PatrickTestList.add(vuln1);
@@ -52,6 +67,10 @@ public class main{
 		PatrickTestList.add(vuln5);
 		PatrickTestList.add(vuln6);
 		PatrickTestList.add(vuln7);
+		PatrickTestList.add(vuln8);
+		PatrickTestList.add(vuln9);
+		PatrickTestList.add(vuln10);
+
 		
 		Organizer organizer = new Organizer();
 						
@@ -61,8 +80,6 @@ public class main{
 			System.out.println(vuln.getCost());
 
 		}
-		 //Soring out arraylist//
-		Collection.sort(PatrickTestList);
 		
 		System.out.println("\nADDING COSTS\n");
 
@@ -72,15 +89,13 @@ public class main{
 			System.out.print(vuln.getName() + " | ");
 			System.out.print(vuln.getRisk() + " - ");
 			System.out.println(vuln.getCost());
-			//Print out the list after the list is sort out
-			System.out.println(PatrickTestList);
 		}
 		
 		System.out.println("\nSORTING BY PRIORITY\n");
 		
-		organizer.organizeList(PatrickTestList);
+		EliTestList = organizer.organizeList(PatrickTestList);
 		
-		for(Vulnerability vuln : PatrickTestList) {
+		for(Vulnerability vuln : EliTestList) {
 			System.out.print(vuln.getName() + " | ");
 			System.out.print(vuln.getRisk() + " - ");
 			System.out.println(vuln.getCost());
