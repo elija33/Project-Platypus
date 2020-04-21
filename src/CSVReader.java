@@ -7,10 +7,12 @@ import java.util.ArrayList;
 
 public class CSVReader {
 	
-	public CSVReader(String csvfile) throws FileNotFoundException  {
-		
 	ArrayList<Vulnerability> vulnList = new ArrayList<Vulnerability>();
-        Scanner scanner = new Scanner(new File(csvfile));
+	
+	public CSVReader(File csvfile) throws FileNotFoundException  {
+		
+	
+        Scanner scanner = new Scanner(csvfile);
         Vulnerability vuln = new Vulnerability();
          
         scanner.useDelimiter(",");                             // Set delimiter to comma for CSV file
