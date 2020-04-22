@@ -3,23 +3,51 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import java.io.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 import java.awt.*;
-import javax.swing.SwingUtilities;
 import java.awt.Desktop;
 
 public class MyPanel extends JPanel implements ActionListener {
     private JButton jcomp1;
     private JLabel jcomp2;
-    private JList Solutions;
+    String[] temp = {"hello"};
+    private JList initialVuln;
     private JLabel jcomp4;
     private JLabel jcomp5;
-    private JList jcomp6;
+    private JList Solutions = new JList (temp);
     private JMenuBar jcomp7;
+    
+    
+    
+    public void setSolutions (ArrayList<Vulnerability> vulnList) {
+    	
+    	remove(this.Solutions);
+    	ArrayList<String> names = new ArrayList<String>();
+    	JScrollPane scrollPane = new JScrollPane();
+    	
+    	for(int i = 0; i < vulnList.size(); i++) {
+    		names.add(vulnList.get(i).getName());
+    	}
+    	
+    	this.Solutions = new JList (names.toArray());
+    	scrollPane.setViewportView(this.Solutions);
+    	this.Solutions.setLayoutOrientation(JList.VERTICAL);
+    	
+    	add(scrollPane);
+    	scrollPane.setBounds (15, 110, 440, 375);
+    	
+    }
+    
+    public JList getSolutions() {
+    	
+    	return this.Solutions;
+    }
+    
 
     public MyPanel() {
         //construct preComponents
-        String[] SolutionsItems = {"Solution 1", "Solution 2", "Solution 3"};
-        String[] jcomp6Items = {"ISSUES WILL BE DISPLAYED HERE"};
+        String[] jcomp6Items = {"Solutions Displayed Here"};
         JMenu fileMenu = new JMenu ("File");
         JMenuItem printItem = new JMenuItem ("Print");
         fileMenu.add (printItem);
@@ -34,10 +62,10 @@ public class MyPanel extends JPanel implements ActionListener {
         //construct components
         jcomp1 = new JButton ("SCAN FILE");
         jcomp2 = new JLabel (" Click scan to scan your csv file for any issues. The results will be displayed in the scrollbox to the right, with possible solutions for your system's issues. ");
-        Solutions = new JList (SolutionsItems);
+        initialVuln = new JList(jcomp6Items);
         jcomp4 = new JLabel (" Welcome to P.L.A.T.Y.P.U.S.");
         jcomp5 = new JLabel ("These are the potential problems we found with your system:");
-        jcomp6 = new JList (jcomp6Items);
+        Solutions = getSolutions();
         jcomp7 = new JMenuBar();
         jcomp7.add (fileMenu);
         jcomp7.add (helpMenu);
@@ -54,31 +82,31 @@ public class MyPanel extends JPanel implements ActionListener {
         add (Solutions);
         add (jcomp4);
         add (jcomp5);
-        add (jcomp6);
+        add (initialVuln);
         add (jcomp7);
 
         //set component bounds (only needed by Absolute Positioning)
         jcomp1.setBounds (15, 490, 480, 140);
         jcomp2.setBounds (15, 580, 910, 135);
-        Solutions.setBounds (505, 30, 413, 600);
+        initialVuln.setBounds (505, 30, 413, 600);
         jcomp4.setBounds (15, 20, 170, 65);
         jcomp5.setBounds (15, 85, 445, 25);
-        jcomp6.setBounds (15, 110, 440, 375);
+        Solutions.setBounds (15, 110, 440, 375);
         jcomp7.setBounds (0, 0, 200, 25);
     }
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == jcomp1)
         {
-            FileChooser.main(null);
+        	SwingUtilities.invokeLater(new Runnable() {
+                public void run() {
+                    //Turn off metal's use of bold fonts
+                    UIManager.put("swing.boldMetal", Boolean.FALSE);
+                    FileChooser.createAndShowGUI();
+                    }
+            });
         }
     }
+    
 
-    public static void main (String[] args) {
-        JFrame frame = new JFrame ("MyPanel");
-        frame.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().add (new MyPanel());
-        frame.pack();
-        frame.setVisible (true);
-    }
 }
