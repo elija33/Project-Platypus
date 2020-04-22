@@ -1,4 +1,25 @@
-import java.util.ArrayList;
+import java.io.FileNotFoundException;
+import javax.swing.JFrame;
+
+
+public class main {
+	
+	static MyPanel panel = new MyPanel();
+	static JFrame frame = new JFrame ("Platypus");
+	
+	public static void main(String[] args) throws FileNotFoundException {
+		
+		
+        frame.setDefaultCloseOperation (JFrame.DISPOSE_ON_CLOSE);
+        frame.getContentPane().add (panel);
+        frame.pack();
+        frame.setVisible (true);
+		
+	}
+
+}
+
+/*import java.util.ArrayList;
 import java.util.Arrays;
 
 public class main{
@@ -100,10 +121,5 @@ public class main{
 			System.out.print(vuln.getRisk() + " - ");
 			System.out.println(vuln.getCost());
 		}
-
-
-
-
-
 	}
-}
+}*/
