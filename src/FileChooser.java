@@ -65,8 +65,7 @@ public class FileChooser extends JPanel implements ActionListener {
 
         //Create the open button.  We use the image from the JLF
         //Graphics Repository (but we extracted it from the jar).
-        openButton = new JButton("Select a File...",
-                createImageIcon("images/Open16.gif"));
+        openButton = new JButton("Select a File...");
         openButton.addActionListener(this);
 
         //For layout purposes, put the buttons in a separate panel
@@ -89,7 +88,8 @@ public class FileChooser extends JPanel implements ActionListener {
                 
                 //This is where application  opens the file.
                 log.append("Opening: " + file.getName() + "." + newline);
-
+                
+               
 
                 try {
                     if (!Desktop.isDesktopSupported())//check if Desktop is supported by Platform or not
@@ -99,17 +99,24 @@ public class FileChooser extends JPanel implements ActionListener {
                     }
                     Desktop desktop = Desktop.getDesktop();
                     if (file.exists())         //checks file exists or not
-                        desktop.open(file);              //opens the specified file
+                                     //opens the specified file
                     {
-                    	CSVReader csvfile1 = new CSVReader(file);
-                        System.out.print(file);
-                        System.out.print(csvfile1.vulnList);
+                    	CSVReader csvfile = new CSVReader(file);
+                    	main.panel.setSolutions(csvfile.vulnList);
+                    	main.panel.revalidate();
+                    	main.panel.repaint();
+                    	
+                        System.out.print(csvfile.vulnList.get(0).getName());
                     }
                 }
                 catch (Exception g)
                 {
                     g.printStackTrace();
                 }
+                
+                
+            	
+            	
 
         } else
             {
@@ -135,10 +142,10 @@ public class FileChooser extends JPanel implements ActionListener {
      * this method should be invoked from the
      * event dispatch thread.
      */
-    private static void createAndShowGUI() {
+    public static void createAndShowGUI() {
         //Create and set up the window.
         JFrame frame = new JFrame("FileChooserDemo");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         //Add content to the window.
         frame.add(new FileChooser());
@@ -148,14 +155,4 @@ public class FileChooser extends JPanel implements ActionListener {
         frame.setVisible(true);
     }
 
-    public static void main(String[] args) {
-        //creating and showing this application's GUI.
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                //Turn off metal's use of bold fonts
-                UIManager.put("swing.boldMetal", Boolean.FALSE);
-                createAndShowGUI();
-                }
-        });
-    }
 }
