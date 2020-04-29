@@ -102,11 +102,13 @@ public class FileChooser extends JPanel implements ActionListener {
                                      //opens the specified file
                     {
                     	CSVReader csvfile = new CSVReader(file);
-                    	main.panel.setSolutions(csvfile.vulnList);
+                    	Organizer organizer = new Organizer();
+                    	main.panel.setVulnList(csvfile.vulnList);
+                    	organizer.addCostEstimates(csvfile.vulnList);
+                    	csvfile.vulnList = organizer.organizeList(csvfile.vulnList);
+                    	main.panel.setSortedSolutions(csvfile.vulnList);
                     	main.panel.revalidate();
                     	main.panel.repaint();
-                    	
-                        System.out.print(csvfile.vulnList.get(0).getName());
                     }
                 }
                 catch (Exception g)
