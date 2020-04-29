@@ -12,17 +12,17 @@ public class MyPanel extends JPanel implements ActionListener {
     private JButton jcomp1;
     private JLabel jcomp2;
     String[] temp = {"hello"};
-    private JList initialVuln;
+    private JList sortedSolutions = new JList (temp);
     private JLabel jcomp4;
     private JLabel jcomp5;
-    private JList Solutions = new JList (temp);
+    private JList initialVulnList = new JList (temp);
     private JMenuBar jcomp7;
     
     
     
-    public void setSolutions (ArrayList<Vulnerability> vulnList) {
+    public void setVulnList (ArrayList<Vulnerability> vulnList) {
     	
-    	remove(this.Solutions);
+    	remove(this.initialVulnList);
     	ArrayList<String> names = new ArrayList<String>();
     	JScrollPane scrollPane = new JScrollPane();
     	
@@ -30,18 +30,42 @@ public class MyPanel extends JPanel implements ActionListener {
     		names.add(vulnList.get(i).getName());
     	}
     	
-    	this.Solutions = new JList (names.toArray());
-    	scrollPane.setViewportView(this.Solutions);
-    	this.Solutions.setLayoutOrientation(JList.VERTICAL);
+    	this.initialVulnList = new JList (names.toArray());
+    	scrollPane.setViewportView(this.initialVulnList);
+    	this.initialVulnList.setLayoutOrientation(JList.VERTICAL);
     	
     	add(scrollPane);
     	scrollPane.setBounds (15, 110, 440, 375);
     	
     }
     
-    public JList getSolutions() {
+    public JList getVulnList() {
     	
-    	return this.Solutions;
+    	return this.initialVulnList;
+    }
+    
+    public void setSortedSolutions (ArrayList<Vulnerability> vulnList) {
+    	
+    	remove(this.sortedSolutions);
+    	ArrayList<String> names = new ArrayList<String>();
+    	JScrollPane scrollPane = new JScrollPane();
+    	
+    	for(int i = 0; i < vulnList.size(); i++) {
+    		names.add(vulnList.get(i).getName() + "    " + vulnList.get(i).getRisk() + "    " + vulnList.get(i).getCost());
+    	}
+    	
+    	this.sortedSolutions = new JList (names.toArray());
+    	scrollPane.setViewportView(this.sortedSolutions);
+    	this.sortedSolutions.setLayoutOrientation(JList.VERTICAL);
+    	
+    	add(scrollPane);
+    	scrollPane.setBounds (505, 30, 1000, 600);
+    	
+    }
+    
+    public JList getSortedSolutions() {
+    	
+    	return this.sortedSolutions;
     }
     
 
@@ -62,10 +86,10 @@ public class MyPanel extends JPanel implements ActionListener {
         //construct components
         jcomp1 = new JButton ("SCAN FILE");
         jcomp2 = new JLabel (" Click scan to scan your csv file for any issues. The results will be displayed in the scrollbox to the right, with possible solutions for your system's issues. ");
-        initialVuln = new JList(jcomp6Items);
+        sortedSolutions = getSortedSolutions();
         jcomp4 = new JLabel (" Welcome to P.L.A.T.Y.P.U.S.");
         jcomp5 = new JLabel ("These are the potential problems we found with your system:");
-        Solutions = getSolutions();
+        initialVulnList = getVulnList();
         jcomp7 = new JMenuBar();
         jcomp7.add (fileMenu);
         jcomp7.add (helpMenu);
@@ -79,19 +103,19 @@ public class MyPanel extends JPanel implements ActionListener {
         //add components
         add (jcomp1);
         add (jcomp2);
-        add (Solutions);
+        add (initialVulnList);
         add (jcomp4);
         add (jcomp5);
-        add (initialVuln);
+        add (sortedSolutions);
         add (jcomp7);
 
         //set component bounds (only needed by Absolute Positioning)
         jcomp1.setBounds (15, 490, 480, 140);
         jcomp2.setBounds (15, 580, 910, 135);
-        initialVuln.setBounds (505, 30, 413, 600);
+        sortedSolutions.setBounds (505, 30, 413, 600);
         jcomp4.setBounds (15, 20, 170, 65);
         jcomp5.setBounds (15, 85, 445, 25);
-        Solutions.setBounds (15, 110, 440, 375);
+        initialVulnList.setBounds (15, 110, 440, 375);
         jcomp7.setBounds (0, 0, 200, 25);
     }
 
