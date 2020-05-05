@@ -8,7 +8,12 @@ public class main {
 	static JFrame frame = new JFrame ("Platypus");
 	
 	public static void main(String[] args) throws FileNotFoundException {
-		
+	
+	try { 
+		UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName();
+	} catch (Exception e) {
+		e.printStackTrace();
+	}
 		
         frame.setDefaultCloseOperation (JFrame.DISPOSE_ON_CLOSE);
         frame.getContentPane().add (panel);
